@@ -1,0 +1,20 @@
+import asyncio
+
+import uvicorn
+
+from spyllm.visualization.consts import VISUALIZATION_SERVER_PORT
+
+
+async def run_fastapi() -> None:
+    """Run FastAPI server asynchronously"""
+    config = uvicorn.Config("server:app", host="127.0.0.1", port=VISUALIZATION_SERVER_PORT, log_level="critical")
+    server = uvicorn.Server(config)
+    print(f"Running UI http://localhost:{VISUALIZATION_SERVER_PORT}/ui")
+    await server.serve()
+
+async def main() -> None:
+    """Run FastAPI and Streamlit concurrently"""
+    await run_fastapi()
+
+if __name__ == "__main__":
+    asyncio.run(main())
