@@ -27,7 +27,7 @@
    <br/>
 </p>
 
-### What's it all about?
+### What is it all about?
 ---
 
 spyllm is a powerful observability framework designed to monitor and analyze AI agent interactions across different platforms and frameworks. It provides comprehensive insights into LLM-powered applications, helping developers understand and optimize their AI systems through detailed tracking and visualization of agent behaviors, conversations, and performance metrics.

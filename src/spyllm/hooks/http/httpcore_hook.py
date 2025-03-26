@@ -1,8 +1,6 @@
 import logging
 from typing import Any, Optional
 
-import httpx
-
 from spyllm.enums import HookEventType
 from spyllm.hooks.http.http_base_hook import HttpInterceptHook
 from spyllm.hooks.http.models import HTTPRequestData, HTTPResponseData
@@ -10,6 +8,7 @@ from spyllm.hooks.models import HookEvent
 
 try:
     import httpcore
+    import httpx
 except ImportError:
     pass
 
