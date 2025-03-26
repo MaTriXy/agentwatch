@@ -41,11 +41,12 @@ spyllm is a cutting-edge observability framework designed to provide deep insigh
 - (More coming soon!)
 
 ## 📦 Prerequisites
+To ensure compatibility with spyllm, your application must be written in Python. The visualization UI will be built locally on your endpoint using npm,
+so make sure you have the following installed:
 
-Ensure you have the following installed:
-- npm
 - Python 3.11+
-- Poetry
+- [poetry](https://python-poetry.org/)
+- npm
 
 ## 🔧 Installation
 
