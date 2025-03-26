@@ -2,7 +2,7 @@
 name = "spyllm"
 version = "0.1.0"
 description = "Platform agnostic Agentic AI runtime observability framework"
-authors = ["Shai Dvash <shai.dvash@cyberark.com"]
+authors = ["Shai Dvash <shai.dvash@cyberark.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
