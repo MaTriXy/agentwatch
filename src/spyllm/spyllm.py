@@ -17,6 +17,8 @@ from spyllm.visualization.consts import VISUALIZATION_SERVER_PORT
 from spyllm.webhooks.handler import WebhookHandler
 from spyllm.webhooks.models import Webhook
 
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 logger = logging.getLogger(__name__)
     
 class SpyLLM:
@@ -152,6 +154,9 @@ class SpyLLM:
                     return CommandResponse(success=True, callback_id=cmd.callback_id)
                 case CommandAction.PING:
                     return CommandResponse(success=True, callback_id=cmd.callback_id)
+                case CommandAction.VERBOSE:
+                    self._set_verbose()
+                    return CommandResponse(success=True, callback_id=cmd.callback_id)
         except ValidationError as e:
             logger.error(f"Error decoding event: {e}")
         
@@ -184,4 +189,12 @@ class SpyLLM:
             task.cancel()
         
         logger.debug("SpyLLM shutdown complete")
+
+    def _set_verbose(self) -> None:
+        logging.basicConfig(level=logging.DEBUG)
+        for logger_name, logger in logging.root.manager.loggerDict.items():
+            if isinstance(logger, logging.Logger):  # Ensure it's a logger
+                logger.setLevel(logging.DEBUG)
+                for handler in logger.handlers:
+                    handler.setLevel(logging.DEBUG)
         

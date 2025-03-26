@@ -1,88 +1,97 @@
 <p align="center">
-      <img src="resources/logo.png" alt="Project Logo" width="400" style="vertical-align:middle; margin-right:10px; font-family: 'Fira Mono', Monospace;" /><br/>
-         <span align="center" style="font-family: 'Fira Mono', Monospace;">spyllm</span><br/>
-        <span align="center" style="font-family: 'Fira Mono', Monospace;">a platform agnostic Agentic AI runtime observability framework</span><br/>
+    <img src="resources/logo.png" alt="spyllm - AI Agent Observability Platform" width="400"/>
 </p>
+<h3 align="center" style="font-family: 'Fira Mono', Monospace;">spyllm</h3>
+<h3 align="center" style="font-family: 'Fira Mono', Monospace;">Platform-Agnostic Agentic AI Runtime Observability Framework</h3>
+
 <p align="center">
-<a href="https://github.com/cyberark/spyllm/commits/main">
-   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/cyberark/spyllm">
-</a>
-&nbsp;&nbsp;
-<a href="https://github.com/cyberark/spyllm">
-   <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/cyberark/spyllm">
-</a>
-&nbsp;&nbsp;
-<a href="https://github.com/cyberark/spyllm/blob/master/LICENSE">
-   <img alt="GitHub License" src="https://img.shields.io/github/license/cyberark/spyllm">
-</a>
-&nbsp;&nbsp;
-<a href="https://discord.gg/Zt297RAK">
-   <img alt="Discord" src="https://img.shields.io/discord/1330486843938177157">
-</a>
-
+    <a href="https://github.com/cyberark/spyllm/commits/main">
+        <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/cyberark/spyllm">
+    </a>
+    <a href="https://github.com/cyberark/spyllm">
+        <img alt="GitHub code size" src="https://img.shields.io/github/languages/code-size/cyberark/spyllm">
+    </a>
+    <a href="https://github.com/cyberark/spyllm/blob/master/LICENSE">
+        <img alt="Apache License" src="https://img.shields.io/github/license/cyberark/spyllm">
+    </a>
+    <a href="https://discord.gg/Zt297RAK">
+        <img alt="Join Discord Community" src="https://img.shields.io/discord/1330486843938177157">
+    </a>
 </p>
-<br/>
+
+## 🌟 Overview
+
+spyllm is a cutting-edge observability framework designed to provide deep insights into AI agent interactions across diverse platforms and frameworks. By seamlessly intercepting, logging, and analyzing interactions, spyllm empowers developers to understand and optimize their AI-driven applications with unprecedented visibility.
+
 <p align="center">
-   <img alt="spyllmgif" src="resources/spyllm.gif" />
-   <br/>
+    <img src="resources/spyllm.gif" alt="spyllm Demonstration" width="800"/>
 </p>
 
-### What is it all about?
----
+## ✨ Key Features
 
-spyllm is a powerful observability framework designed to monitor and analyze AI agent interactions across different platforms and frameworks. It provides comprehensive insights into LLM-powered applications, helping developers understand and optimize their AI systems through detailed tracking and visualization of agent behaviors, conversations, and performance metrics.
-Whether you use the vanilla OpenAI client or the full blown langgraph framework - spyllm knows how to seamlessly intercept, log, and analyze interactions, giving you full visibility into how your AI agents operate. With minimal integration effort, spyllm provides insights and drills down your flows, making it an essential tool for any AI-driven application.
+- **Comprehensive Interaction Tracking**: Monitor LLM and tool calls in real-time
+- **Advanced Visualization**: Generate intuitive graphs for in-depth analysis
+- **Detailed Metadata Capture**: Log tool inputs, arguments, and performance metrics
+- **Multi-Framework Support**: Compatible with various AI development frameworks
 
-### Prerequisites
----
+## 🚀 Supported Frameworks
+
+- Langgraph
+- Autogen
+- (More coming soon!)
+
+## 📦 Prerequisites
 
 Ensure you have the following installed:
+- npm
+- Python 3.11+
+- Poetry
 
-- **npm**  
-- **Python 3.11**  
-- **Poetry**  
+## 🔧 Installation
 
-## Using spyllm
-### Step 1: Add as a dependency to your project and import
-Add spyllm as a dependency in your project:
+Install spyllm directly from GitHub:
+
 ```bash
-pip install git+https://github.com/cyberark/spyllm.git # Or use any other package manager
+pip install git+https://github.com/cyberark/spyllm.git
 ```
 
-### Step 2: Add an import to your main module
-```python
-import spyllm
-```
+## 🖥️ Quick Start
 
-### Step 3: Run the UI and launch your agent!
-```bash
-./run_ui.sh
-```
+1. Import spyllm in your main module:
+   ```python
+   import spyllm
+   ```
 
-Once the UI is running, all agent interactions will be tracked and monitored
+2. Ensure your entry point is within a `__main__` block:
+   ```python
+   if __name__ == "__main__":
+       # Your code execution starts here
+   ```
 
-That’s it! 🚀
+3. Launch the UI:
+   ```bash
+   spyllm ui
+   # (Take note this will open a new tab in your browser)
+   ```
 
-## Documentation
+Your AI agent interactions will now be automatically tracked and monitored!
 
-Explore detailed usage instructions in the [Wiki](https://github.com/cyberark/spyllm/wiki).
+## 📚 Documentation
 
-## Examples
+For comprehensive guides and detailed usage instructions, visit our [GitHub Wiki](https://github.com/cyberark/spyllm/wiki).
 
+## 🤝 Contributing
 
-## Key Features
+We welcome contributions! Please review our [CONTRIBUTING.md](https://github.com/cyberark/spyllm/blob/main/CONTRIBUTING.md) for guidelines on how to get involved.
 
-## Supported (and tested) frameworks
+## 📄 License
 
-## Contributing
+spyllm is released under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-Contributions are welcome! If you would like to contribute to spyllm, please follow the guidelines outlined in the [CONTRIBUTING.md](https://github.com/cyberark/spyllm/blob/main/CONTRIBUTING.md) file.
+## 📧 Contact
 
-## License
+Have questions or suggestions? Reach out to us at [fzai@cyberark.com](mailto:fzai@cyberark.com) or join our [Discord Community](https://discord.gg/Zt297RAK).
 
-spyllm is released under the [Apache License](https://www.apache.org/licenses/LICENSE-2.0). See the [LICENSE](https://github.com/cyberark/spyllm/blob/main/LICENSE) file for more details.
+## 🌈 Powered By CyberArk
 
-## Contact
-
-If you have any questions or suggestions regarding spyllm, please feel free to contact us at [fzai@cyberark.com](mailto:fzai@cyberark.com).
-
+A project from CyberArk, dedicated to advancing AI observability and security.

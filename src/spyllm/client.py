@@ -17,8 +17,6 @@ from spyllm.models import Command, CommandResponse
 from spyllm.pipes import Pipes
 from spyllm.spyllm import SpyLLM
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
 logger = logging.getLogger(__name__)
 class SpyLLMClient(HookCallbackProto):
     def __init__(self) -> None:
@@ -51,6 +49,9 @@ class SpyLLMClient(HookCallbackProto):
         self._execution_id = uuid.uuid4().hex
         self._start_spyllm()
 
+    def set_verbose(self) -> None:
+        logger.setLevel(logging.DEBUG)
+        
     async def on_hook_callback(self, hook: BaseHook, obj: HookEvent) -> None:
         logger.debug(f"Hook callback received: {obj.event_type}")
         self.send_command(CommandAction.EVENT, obj.model_dump())

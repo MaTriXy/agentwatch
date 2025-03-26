@@ -6,6 +6,7 @@ class CommandAction(Enum):
     SHUTDOWN = "shutdown"
     PING = "ping"
     ADD_WEBHOOK = "add_webhook"
+    VERBOSE = "verbose"
     
 class HookEventType(Enum):
     HTTP_REQUEST = "http_request"

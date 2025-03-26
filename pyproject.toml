@@ -1,9 +1,12 @@
+[tool.setuptools]
+py-modules = ["spyllm"]
+
 [tool.poetry]
 name = "spyllm"
 version = "1.0.0"
 description = "Platform agnostic Agentic AI runtime observability framework"
 authors = ["Shai Dvash <shai.dvash@cyberark.com>"]
-license = "MIT"
+license = "Apache 2.0"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -35,6 +38,9 @@ pythonpath = [
   "src/"
 ]
 
+[tool.poetry.scripts]
+spyllm = "spyllm.cli:main"
+
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["setuptools>=40.9.0", "wheel", "poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
