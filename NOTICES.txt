@@ -2,58 +2,99 @@ Copyright (c) 2025 CyberArk Software Ltd. All rights reserved
 
 spyllm is using the following open source components:
 
-PYTHON
+asyncio (http://www.python.org/dev/peps/pep-3156/): UNKNOWN  
+Author: UNKNOWN  
 
- Name                  Version    License                                                                         Author                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   URL                                                                                
- asyncio               3.4.3      UNKNOWN                                                                         UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  http://www.python.org/dev/peps/pep-3156/                                           
- pydantic              2.10.6     MIT License                                                                     Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev>, Serge Matveenko <lig@countzero.co>, Marcelo Trylesinski <marcelotryle@gmail.com>, Sydney Runkle <sydneymarierunkle@gmail.com>, David Hewitt <mail@davidhewitt.io>, Alex Hall <alex.mojaki@gmail.com>, Victorien Plot <contact@vctrn.dev>  https://github.com/pydantic/pydantic                                               
- aiofiles              24.1.0     Apache Software License                                                         Tin Tvrtkovic <tinchester@gmail.com>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     https://github.com/Tinche/aiofiles                                                 
- aiohttp               3.11.14    Apache Software License                                                         UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  https://github.com/aio-libs/aiohttp                                                
- jsonpath-ng           1.7.0      Apache Software License                                                         Tomas Aparicio                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           https://github.com/h2non/jsonpath-ng                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     https://www.encode.io/httpcore/                                                    
- httpx                 0.28.1     BSD License                                                                     Tom Christie <tom@tomchristie.com>                                                                                                                                                                                                                                                                                                                                                                                                                                                                       https://github.com/encode/httpx                                                    
- uvicorn               0.34.0     BSD License                                                                     Tom Christie <tom@tomchristie.com>, Marcelo Trylesinski <marcelotryle@gmail.com>                                                                                                                                                                                                                                                                                                                                                                                                                         https://www.uvicorn.org/                                                           
- dotenv                0.9.9      UNKNOWN                                                                         Pedro Burón                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              https://github.com/pedroburon/dotenv                                               
- pytest                8.3.5      MIT License                                                                     Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe, Brianna Laugher, Florian Bruhin, Others (See AUTHORS)                                                                                                                                                                                                                                                                                                                                                                              https://docs.pytest.org/en/latest/                                                 
- pytest-asyncio        0.25.3     Apache Software License                                                         "Tin Tvrtković <tinchester@gmail.com>" <tinchester@gmail.com>                                                                                                                                                                                                                                                                                                                                                                                                                                            https://github.com/pytest-dev/pytest-asyncio                                       
- autoflake             2.3.1      MIT License                                                                     UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  https://www.github.com/PyCQA/autoflake                                             
- mypy                  1.15.0     MIT License                                                                     Jukka Lehtosalo <jukka.lehtosalo@iki.fi>                                                                                                                                                                                                                                                                                                                                                                                                                                                                 https://www.mypy-lang.org/                                                         
- langgraph             0.3.8      MIT License                                                                     UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  https://www.github.com/langchain-ai/langgraph                                      
- langchain-anthropic   0.3.9      MIT                                                                             UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  https://github.com/langchain-ai/langchain                                         
- langchain-ollama      0.2.3      MIT License                                                                     UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  https://github.com/langchain-ai/langchain                                          
- langchain-openai      0.3.9      MIT                                                                             UNKNOWN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  https://github.com/langchain-ai/langchain                                          
- websockets            15.0.1     BSD License                                                                     Aymeric Augustin <aymeric.augustin@m4x.org>                                                                                                                                                                                                                                                                                                                                                                                                                                                              https://github.com/python-websockets/websockets                                    
- fastapi               0.115.11   MIT License                                                                     =?utf-8?q?Sebasti=C3=A1n_Ram=C3=ADrez?= <tiangolo@gmail.com>                                                                                                                                                                                                                                                                                                                                                                                                                                             https://github.com/fastapi/fastapi                                                 
+pydantic (https://github.com/pydantic/pydantic): MIT License  
+Author: Samuel Colvin, Eric Jolibois, Hasan Ramezani, Adrian Garcia Badaracco, Terrence Dorsey,  
+David Montague, Serge Matveenko, Marcelo Trylesinski, Sydney Runkle, David Hewitt,  
+Alex Hall, Victorien Plot  
+
+aiofiles (https://github.com/Tinche/aiofiles): Apache Software License  
+Author: Tin Tvrtkovic  
+
+aiohttp (https://github.com/aio-libs/aiohttp): Apache Software License  
+Author: UNKNOWN  
+
+jsonpath-ng (https://github.com/h2non/jsonpath-ng): Apache Software License  
+Author: Tomas Aparicio  
+
+httpx (https://github.com/encode/httpx): BSD License  
+Author: Tom Christie  
+
+uvicorn (https://www.uvicorn.org/): BSD License  
+Author: Tom Christie, Marcelo Trylesinski  
+
+dotenv (https://github.com/pedroburon/dotenv): UNKNOWN  
+Author: Pedro Burón  
+
+pytest (https://docs.pytest.org/en/latest/): MIT License  
+Author: Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe,  
+Brianna Laugher, Florian Bruhin, Others (See AUTHORS)  
+
+pytest-asyncio (https://github.com/pytest-dev/pytest-asyncio): Apache Software License  
+Author: Tin Tvrtković  
+
+autoflake (https://www.github.com/PyCQA/autoflake): MIT License  
+Author: UNKNOWN  
+
+mypy (https://www.mypy-lang.org/): MIT License  
+Author: Jukka Lehtosalo  
+
+langgraph (https://www.github.com/langchain-ai/langgraph): MIT License  
+Author: UNKNOWN  
+
+langchain-anthropic (https://github.com/langchain-ai/langchain): MIT  
+Author: UNKNOWN  
+
+langchain-ollama (https://github.com/langchain-ai/langchain): MIT License  
+Author: UNKNOWN  
+
+langchain-openai (https://github.com/langchain-ai/langchain): MIT  
+Author: UNKNOWN  
+
+websockets (https://github.com/python-websockets/websockets): BSD License  
+Author: Aymeric Augustin  
+
+fastapi (UNKNOWN): MIT License  
+Author: Sebastián Ramírez                                                                                                                                                                                                                                                                                                                                                                                                                                             https://github.com/fastapi/fastapi                                                 
 --
 
 Node
 | 
-├─ @xyflow/react@12.4.4
-│  ├─ licenses: MIT
-├─ date-fns@4.1.0
-│  ├─ licenses: MIT
-├─ lucide-react@0.482.0
-│  ├─ licenses: ISC
-│  ├─ publisher: Eric Fennis
-├─ react@18.3.1
-│  ├─ licenses: MIT
-├─ react-dom@18.3.1
-│  ├─ licenses: MIT
-├─ react-icons@5.5.0
-│  ├─ licenses: MIT
-│  ├─ publisher: Goran Gajic
-├─ @types/react-dom@18.3.5
-│  ├─ licenses: MIT
-├─ @types/react@18.3.18
-│  ├─ licenses: MIT
-├─ @vitejs/plugin-react@3.1.0
-│  ├─ licenses: MIT
-│  ├─ publisher: Evan You
-├─ typescript@4.9.5
-│  ├─ licenses: Apache-2.0
-│  ├─ publisher: Microsoft Corp.
-├─ vite@4.1.4
-│  ├─ licenses: MIT
-│  ├─ publisher: Evan You
+@xyflow/react (https://www.npmjs.com/package/@xyflow/react): MIT  
+Author: UNKNOWN  
+
+date-fns (https://www.npmjs.com/package/date-fns): MIT  
+Author: UNKNOWN  
+
+lucide-react (https://www.npmjs.com/package/lucide-react): ISC  
+Author: Eric Fennis  
+
+react (https://www.npmjs.com/package/react): MIT  
+Author: UNKNOWN  
+
+react-dom (https://www.npmjs.com/package/react-dom): MIT  
+Author: UNKNOWN  
+
+react-icons (https://www.npmjs.com/package/react-icons): MIT  
+Author: Goran Gajic  
+
+@types/react-dom (https://www.npmjs.com/package/@types/react-dom): MIT  
+Author: UNKNOWN  
+
+@types/react (https://www.npmjs.com/package/@types/react): MIT  
+Author: UNKNOWN  
+
+@vitejs/plugin-react (https://www.npmjs.com/package/@vitejs/plugin-react): MIT  
+Author: Evan You  
+
+typescript (https://www.npmjs.com/package/typescript): Apache-2.0  
+Author: Microsoft Corp.  
+
+vite (https://www.npmjs.com/package/vite): MIT  
+Author: Evan You  
+
 
 =================================================================================
 
