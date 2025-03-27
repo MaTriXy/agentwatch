@@ -4,8 +4,9 @@ from typing import Any
 from pydantic import BaseModel, ValidationError
 
 from spyllm.graph.consts import APP_NODE_ID
+from spyllm.graph.enums import HttpModel
 from spyllm.graph.models import (Edge, GraphExtractor, GraphStructure, LLMNode, ModelGenerateEdge, Node, ToolCallEdge,
-                                 ToolNode)
+                                 ToolNode, graph_extractor_fm)
 from spyllm.llm.models import AssistantMessage, Message, UserMessage
 
 
@@ -23,12 +24,13 @@ class OllamaTool(BaseModel):
     type: str
     function: Function
 
+@graph_extractor_fm.flavor(HttpModel.OLLAMA_REQUEST)
 class OllamaRequestModel(GraphExtractor):
     model: str
     stream: bool
     options: dict[str, str]
     messages: list[UserMessage | AssistantMessage]
-    tools: list[OllamaTool]
+    tools: list[OllamaTool] = []
 
     def extract_graph_structure(self) -> GraphStructure:
         nodes: list[Node] = []
@@ -57,6 +59,7 @@ class OllamaToolCall(BaseModel):
 class OllamaAssistantMessage(Message):
     content: str
 
+@graph_extractor_fm.flavor(HttpModel.OLLAMA_RESPONSE)
 class OllamaResponseModel(GraphExtractor):
     model: str
     created_at: str
@@ -87,3 +90,35 @@ class OllamaResponseModel(GraphExtractor):
                 edges.append(model_generate_edge)
 
         return [], edges
+
+@graph_extractor_fm.flavor(HttpModel.OLLAMA_GENERATE_REQUEST)
+class OllamaGenerateRequestModel(GraphExtractor):
+    model: str
+    prompt: str
+    options: dict[str, Any]
+    stream: bool
+
+    def extract_graph_structure(self) -> GraphStructure:
+        nodes: list[Node] = []
+        edges: list[Edge] = []
+
+        model: LLMNode = LLMNode(node_id=self.model)
+        nodes.append(model)
+        model_generate_edge = ModelGenerateEdge(prompt=self.prompt,
+                                                source_node_id=APP_NODE_ID,
+                                                target_node_id=model.node_id)
+        edges.append(model_generate_edge)
+        return nodes, edges
+    
+@graph_extractor_fm.flavor(HttpModel.OLLAMA_GENERATE_RESPONSE)
+class OllamaGenerateResponseModel(GraphExtractor):
+    model: str
+    created_at: str
+    response: str
+    done: bool
+
+    def extract_graph_structure(self) -> GraphStructure:
+        model_generate_edge = ModelGenerateEdge(prompt=self.response,
+                                                source_node_id=self.model,
+                                                target_node_id=APP_NODE_ID)
+        return [], [model_generate_edge]

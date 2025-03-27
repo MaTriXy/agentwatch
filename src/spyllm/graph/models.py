@@ -1,12 +1,13 @@
 import time
 import uuid
 from abc import abstractmethod
-from typing import Any, TypeAlias
+from typing import Any, Type, TypeAlias
 
 from pydantic import BaseModel, Field
 
 from spyllm.graph.consts import APP_NODE_ID
 from spyllm.graph.enums import EdgeType, NodeType
+from spyllm.utils.flavor_manager import FlavorManager
 
 
 class GraphExtractor(BaseModel):
@@ -46,4 +47,5 @@ class ToolCallEdge(Edge):
 
 GraphStructure: TypeAlias = tuple[list[Node], list[Edge]]
 
+graph_extractor_fm: FlavorManager[str, Type[GraphExtractor]] = FlavorManager()
 

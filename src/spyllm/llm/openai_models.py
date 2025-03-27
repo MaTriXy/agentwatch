@@ -4,8 +4,9 @@ from typing import Any, Optional
 from pydantic import BaseModel
 
 from spyllm.graph.consts import APP_NODE_ID
+from spyllm.graph.enums import HttpModel
 from spyllm.graph.models import (Edge, GraphExtractor, GraphStructure, LLMNode, ModelGenerateEdge, Node, ToolCallEdge,
-                                 ToolNode)
+                                 ToolNode, graph_extractor_fm)
 from spyllm.llm.enums import Role
 from spyllm.llm.models import SystemMessage, UserMessage
 
@@ -32,6 +33,7 @@ class AssistantMessage(Message):
     content: Optional[str]
     tool_calls: list["ToolCall"]
 
+@graph_extractor_fm.flavor(HttpModel.OPENAI_REQUEST)
 class OpenAIRequestModel(GraphExtractor):
     messages: list[UserMessage | AssistantMessage | SystemMessage | ToolMessage]
     model: str
@@ -97,6 +99,7 @@ class Usage(BaseModel):
     completion_tokens: int
     total_tokens: int
 
+@graph_extractor_fm.flavor(HttpModel.OPENAI_RESPONSE)
 class OpenAIResponseModel(GraphExtractor):
     id: str
     object: str

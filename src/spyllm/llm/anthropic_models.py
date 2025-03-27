@@ -1,11 +1,13 @@
 from typing import Optional
 
 from spyllm.graph.consts import APP_NODE_ID
+from spyllm.graph.enums import HttpModel
 from spyllm.graph.models import (Edge, GraphExtractor, GraphStructure, LLMNode, ModelGenerateEdge, Node, ToolCallEdge,
-                                 ToolNode)
+                                 ToolNode, graph_extractor_fm)
 from spyllm.llm.models import AssistantMessage, SystemMessage, TextContent, Tool, ToolUse, UserMessage
 
 
+@graph_extractor_fm.flavor(HttpModel.ANTHROPIC_REQUEST)
 class AnthropicRequestModel(GraphExtractor):
     messages: list[UserMessage | AssistantMessage | SystemMessage]
     model: str
@@ -44,6 +46,7 @@ class AnthropicRequestModel(GraphExtractor):
         
         return nodes, edges
 
+@graph_extractor_fm.flavor(HttpModel.ANTHROPIC_RESPONSE)
 class AnthropicResponseModel(GraphExtractor):
     id: str
     type: str

@@ -4,11 +4,10 @@ from typing import Any, Optional
 from pydantic import ValidationError
 
 from spyllm.enums import HookEventType
+from spyllm.graph.enums import HttpModel
 from spyllm.graph.models import GraphExtractor
 from spyllm.hooks.http.models import HTTPRequestData, HTTPResponseData
-from spyllm.llm.anthropic_models import AnthropicRequestModel, AnthropicResponseModel
-from spyllm.llm.ollama_models import OllamaRequestModel, OllamaResponseModel
-from spyllm.llm.openai_models import OpenAIRequestModel, OpenAIResponseModel
+from spyllm.llm.ollama_models import graph_extractor_fm
 from spyllm.processing.base import BaseProcessor, GraphStructure
 from spyllm.processing.normalizer.base import BaseHTTPContentNormalizer
 from spyllm.processing.normalizer.ndjson_normalizer import NdjsonContentNormalizer
@@ -38,9 +37,7 @@ class HttpProcessor(BaseProcessor):
 
     async def _handle_payload(self, reqres: HTTPRequestData | HTTPResponseData) -> Optional[GraphStructure]:
         # TODO: Replace this brute force approach with something more targeted, i.e per-provider processor
-        request_models: list[type[GraphExtractor]] = [AnthropicRequestModel, AnthropicResponseModel, 
-                                                      OllamaRequestModel, OllamaResponseModel,
-                                                      OpenAIRequestModel, OpenAIResponseModel]
+        models: list[type[GraphExtractor]] = [graph_extractor_fm[model] for model in HttpModel]
 
         body: Optional[str] = reqres.body
 
@@ -50,9 +47,9 @@ class HttpProcessor(BaseProcessor):
                     body = normalizer.normalize(body)
                     break
 
-            for req_model_type in request_models:
+            for model_type in models:
                 try:
-                    req_model = req_model_type.model_validate_json(body)
+                    req_model = model_type.model_validate_json(body)
                     return self._parse_nodes_and_edges(req_model)
                 except ValidationError as e:
                     continue
