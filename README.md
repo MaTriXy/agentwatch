@@ -45,7 +45,6 @@ To ensure compatibility with spyllm, your application must be written in Python.
 so make sure you have the following installed:
 
 - Python 3.11+
-- [poetry](https://python-poetry.org/)
 - npm
 
 ## 🔧 Installation
