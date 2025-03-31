@@ -96,7 +96,8 @@ To use the examples, follow these steps:
    ./run_ui.sh # (Take note this will open a new tab in your browser)
    ```
 
-4. ...And from another terminal, Run one of the examples under examples/. Don't forget to set the necessary API keys in a [.env](https://pypi.org/project/python-dotenv/) file
+4. ...And from another terminal, Run one of the examples under examples/.
+   Don't forget to set the necessary API keys in a [.env](https://pypi.org/project/python-dotenv/) file
    ```bash
    poetry run python examples/langgraph_example.py
    ```
