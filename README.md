@@ -90,7 +90,7 @@ To use the examples, clone this repository, and follow these steps:
    ./run_ui.sh
    ```
 
-3. Run one of the examples under examples/. Don't forget to set the necessary API keys in the .env file
+3. Run one of the examples under examples/. Don't forget to set the necessary API keys in a [.env](https://pypi.org/project/python-dotenv/) file
    ```bash
    poetry run python examples/langgraph_example.py
    ```
