@@ -10,28 +10,26 @@ from spyllm.core import initialize
 
 logging.basicConfig(level=logging.DEBUG)
 
+load_dotenv()
 
 Operator = Literal["+", "-", "*", "/"]
 
-
-config_list = [
+ollama_config_list = [
 {
     "model": "llama3.1",
     "base_url": "http://127.0.0.1:11434/v1",
     "api_key": "ollama"
 }]
 
-load_dotenv()
-
-config_list = [{
+claude_config_list = [{
     "model": "claude-3-5-sonnet-20240620",
     "api_key": os.environ["ANTHROPIC_API_KEY"],
     "api_type": "anthropic"
 }
-
 ]
+
 llm_config = {
-    "config_list": config_list,
+    "config_list": claude_config_list, # Or use ollama_config_list
     "timeout": 120,
 }
 

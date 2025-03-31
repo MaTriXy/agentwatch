@@ -13,6 +13,7 @@ import spyllm
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+
 @tool
 def retrieve_emails(employee_name: list[str]) -> list[dict[str, Any]]:
     """
@@ -104,12 +105,14 @@ def print_stream(stream):
 load_dotenv()
 
 if __name__ == "__main__":
+    # Choose between Ollama, Anthropic or OpenAI
+    
     #model = ChatOllama(model="llama3.1")
     #model = ChatAnthropic(model="claude-3-5-sonnet-20241022")
     model = ChatOpenAI(model="gpt-4o-2024-08-06")
+
     graph = create_react_agent(model, tools=tools)
     inputs = {"messages": [("user", "Retrieve emails for user John Doe and update his vacation dates in HR SYSTEM")]}
-    #inputs = {"messages": [("user", "Retrieve emails for john doe")]}
     print_stream(graph.stream(inputs, stream_mode="values"))
-    #spyllm.send_command(CommandAction.PING)
+
     sleep(99999)
