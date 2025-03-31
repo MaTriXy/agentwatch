@@ -21,21 +21,8 @@ class Pipes:
         Read a payload from pipe asynchronously.
         This is used by the library process.
         """
-        try:
-            data_available = asyncio.Event()
-            asyncio.get_event_loop().add_reader(reader_fd.fileno(), data_available.set)
-
-            while not reader_fd.poll():
-                await data_available.wait()
-                data_available.clear()
-
-            data: str = reader_fd.recv()
-            return data
-        except Exception as e:
-            logger.error(f"Error reading payload: {e}")
-            raise
-        finally:
-            pass
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, reader_fd.recv)
 
     @classmethod
     def write_payload_sync(cls, writer_fd: Connection, payload: BaseModel) -> None:
