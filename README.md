@@ -78,19 +78,25 @@ Run your main module - and AI agent interactions will now be automatically track
 
 ## 📌 Examples
 We've included a few examples under the [examples/](https://github.com/cyberark/spyllm/tree/main/examples) folder.
-To use the examples, clone this repository, and follow these steps:
+To use the examples, follow these steps:
 
-1. Install python dependencies using poetry. If you don't have Poetry installed, get it [here](https://python-poetry.org/)
+1. Clone this repository
+   ```bash
+   git clone https://github.com/cyberark/spyllm.git
+   cd spyllm
+   ```
+   
+2. Install python dependencies using poetry. If you don't have Poetry installed, get it [here](https://python-poetry.org/)
    ```bash
    poetry install --with dev
    ```
 
-2. Run the UI
+3. Run the UI from one terminal...
    ```bash
-   ./run_ui.sh
+   ./run_ui.sh # (Take note this will open a new tab in your browser)
    ```
 
-3. Run one of the examples under examples/. Don't forget to set the necessary API keys in a [.env](https://pypi.org/project/python-dotenv/) file
+4. ...And from another terminal, Run one of the examples under examples/. Don't forget to set the necessary API keys in a [.env](https://pypi.org/project/python-dotenv/) file
    ```bash
    poetry run python examples/langgraph_example.py
    ```
