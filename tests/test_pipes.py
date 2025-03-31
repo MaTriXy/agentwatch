@@ -8,14 +8,14 @@ from spyllm.models import CommandResponse
 from spyllm.pipes import Pipes
 
 
-class TestPayload(BaseModel):
+class MockPayload(BaseModel):
     message: str
     value: int
 
 def test_write_payload_sync():
     """Test synchronous payload writing."""
     parent_conn, child_conn = Pipe()
-    payload = TestPayload(message="test", value=42)
+    payload = MockPayload(message="test", value=42)
     
     Pipes.write_payload_sync(parent_conn, payload)
     
@@ -26,7 +26,7 @@ def test_write_payload_sync():
 async def test_write_payload_async():
     """Test asynchronous payload writing."""
     parent_conn, child_conn = Pipe()
-    payload = TestPayload(message="async test", value=123)
+    payload = MockPayload(message="async test", value=123)
     
     await Pipes.write_payload(parent_conn, payload)
     
@@ -39,7 +39,7 @@ async def test_read_payload():
     parent_conn, child_conn = Pipe()
     
     # Send data from the other end of the pipe
-    test_payload = TestPayload(message="read test", value=456)
+    test_payload = MockPayload(message="read test", value=456)
     child_conn.send(test_payload.model_dump_json())
     
     # Read payload

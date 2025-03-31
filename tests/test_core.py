@@ -1,7 +1,7 @@
 import unittest
 
 from spyllm.core import Singleton
-from spyllm.spyllm import SpyLLM
+from spyllm.event_processing import SpyLLM
 
 
 class TestHybridSingleton(unittest.TestCase):

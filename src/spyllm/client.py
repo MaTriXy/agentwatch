@@ -9,13 +9,13 @@ import uuid
 from typing import Any, Optional, Type
 
 from spyllm.enums import CommandAction
+from spyllm.event_processing import SpyLLM
 from spyllm.hooks.base import BaseHook, HookCallbackProto
 from spyllm.hooks.http.http_base_hook import HttpInterceptHook
 from spyllm.hooks.http.httpcore_hook import HttpcoreHook
 from spyllm.hooks.models import HookEvent
 from spyllm.models import Command, CommandResponse
 from spyllm.pipes import Pipes
-from spyllm.spyllm import SpyLLM
 
 logger = logging.getLogger(__name__)
 class SpyLLMClient(HookCallbackProto):
