@@ -1,13 +1,18 @@
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+os.environ["SPYLLM_INTERNAL"] = "1"
+
 import argparse
 import asyncio
 import logging
-import os
 import subprocess
 import webbrowser
 from pathlib import Path
 from typing import Any
 
-import spyllm
 from spyllm.visualization.app import run_fastapi
 from spyllm.visualization.consts import VISUALIZATION_SERVER_PORT
 
@@ -23,9 +28,8 @@ async def run_server() -> None:
         pass
 
 def run_ui() -> None:
-    dist_folder = Path(spyllm.__file__).parent / "visualization" / "frontend" / "dist"
+    dist_folder = Path(__file__).parent / "visualization" / "frontend" / "dist"
     if not dist_folder.exists():
-        # Run NPM build
         print("Building UI for the first time...")
         try:
             extra_args: dict[str, Any] = {"capture_output": True}
@@ -33,8 +37,8 @@ def run_ui() -> None:
                 extra_args["shell"] = True
                 extra_args["check"] = True
 
-            subprocess.run(["npm", "i"], cwd=Path(spyllm.__file__).parent / "visualization" / "frontend", **extra_args)
-            subprocess.run(["npm", "run", "build"], cwd=Path(spyllm.__file__).parent / "visualization" / "frontend", **extra_args)
+            subprocess.run(["npm", "i"], cwd=Path(__file__).parent / "visualization" / "frontend", **extra_args)
+            subprocess.run(["npm", "run", "build"], cwd=Path(__file__).parent / "visualization" / "frontend", **extra_args)
         except FileNotFoundError:
             print("NPM not found. Please install Node.js and NPM.")
             return
@@ -60,4 +64,3 @@ def main() -> None:
 
 if __name__ == "__main__":  # pragma: no cover
     main()
-    
