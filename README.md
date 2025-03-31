@@ -38,7 +38,8 @@ spyllm is a cutting-edge observability framework designed to provide deep insigh
 
 - Langgraph
 - Autogen
-- (More coming soon!)
+- CrewAI
+- Any other application, framework or toolset which uses an LLM! :D
 
 ## 📦 Prerequisites
 To ensure compatibility with spyllm, your application must be written in Python. The visualization UI will be built locally on your endpoint using npm,
