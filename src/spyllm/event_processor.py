@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 
 logger = logging.getLogger(__name__)
     
-class SpyLLM:
+class EventProcessor:
     NUM_WORKERS = 1
 
     def __init__(self) -> None:

@@ -9,7 +9,7 @@ import uuid
 from typing import Any, Optional, Type
 
 from spyllm.enums import CommandAction
-from spyllm.event_processing import SpyLLM
+from spyllm.event_processor import EventProcessor
 from spyllm.hooks.base import BaseHook, HookCallbackProto
 from spyllm.hooks.http.http_base_hook import HttpInterceptHook
 from spyllm.hooks.http.httpcore_hook import HttpcoreHook
@@ -27,7 +27,7 @@ class SpyLLMClient(HookCallbackProto):
         self._initialized_event = multiprocessing.Event()
 
         self._client_fd, self._spyllm_fd = multiprocessing.Pipe()
-        self._spyllm = SpyLLM()
+        self._spyllm = EventProcessor()
 
         self._llm_hosts =[
             "api.openai.com",
