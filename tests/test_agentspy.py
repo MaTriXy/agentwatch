@@ -134,25 +134,14 @@ def test_send_command_wait_skip_other_responses(client):
         assert response == response2
         assert mock_read.call_count == 2
 
-def test_shutdown(client):
-    """Test normal shutdown process"""
-    with patch('agentspy.pipes.Pipes.write_payload_sync') as mock_write:
-        # Setup process mock
-        process_mock = MagicMock()
-        process_mock.is_alive.return_value = False
-        client._process = process_mock
-        
-        # Simulate normal shutdown
-        client.shutdown()
-        
-        # Verify shutdown command sent
-        mock_write.assert_called_once()
-        cmd = mock_write.call_args[0][1]
-        assert cmd.action == CommandAction.SHUTDOWN
-        
-        # Verify process state checked
-        process_mock.is_alive.assert_called()
-        assert client._running is False
+def test_shutdown():
+    agentspy = AgentspyClient()
+    event_processor = agentspy._process
+
+    assert event_processor.is_alive()
+    agentspy.shutdown()
+    assert not event_processor.is_alive()
+    
 
 def test_shutdown_force_kill(client):
     """Test shutdown with force kill"""
