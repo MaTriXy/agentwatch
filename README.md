@@ -38,7 +38,8 @@ agentspy is a cutting-edge observability framework designed to provide deep insi
 
 - Langgraph
 - Autogen
-- (More coming soon!)
+- ...
+- Any other framework or library which uses an LLM :D
 
 ## 📦 Prerequisites
 To ensure compatibility with agentspy, your application must be written in Python. The visualization UI will be built locally on your endpoint using npm,
