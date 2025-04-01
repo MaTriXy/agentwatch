@@ -17,7 +17,7 @@ from spyllm.visualization.consts import VISUALIZATION_SERVER_PORT
 from spyllm.webhooks.handler import WebhookHandler
 from spyllm.webhooks.models import Webhook
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger(__name__)
     
