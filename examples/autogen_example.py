@@ -6,7 +6,7 @@ from typing import Annotated, Literal
 import autogen
 from dotenv import load_dotenv
 
-from spyllm.core import initialize
+from agentspy.core import initialize
 
 logging.basicConfig(level=logging.DEBUG)
 

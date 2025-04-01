@@ -3,13 +3,13 @@ import uuid
 
 import pytest
 
-from spyllm.enums import HookEventType
-from spyllm.graph.consts import APP_NODE_ID
-from spyllm.graph.models import LLMNode, ModelGenerateEdge, ToolCallEdge, ToolNode
-from spyllm.llm.anthropic_models import AnthropicRequestModel, AnthropicResponseModel
-from spyllm.llm.enums import Role
-from spyllm.llm.models import AssistantMessage, TextContent, Tool, ToolUse, UserMessage
-from spyllm.processing.http_processing import HttpProcessor
+from agentspy.enums import HookEventType
+from agentspy.graph.consts import APP_NODE_ID
+from agentspy.graph.models import LLMNode, ModelGenerateEdge, ToolCallEdge, ToolNode
+from agentspy.llm.anthropic_models import AnthropicRequestModel, AnthropicResponseModel
+from agentspy.llm.enums import Role
+from agentspy.llm.models import AssistantMessage, TextContent, Tool, ToolUse, UserMessage
+from agentspy.processing.http_processing import HttpProcessor
 
 
 @pytest.fixture

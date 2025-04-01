@@ -7,7 +7,7 @@ from typing import Any
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.tools import tool
 
-import spyllm
+import agentspy
 
 logger = logging.getLogger(__name__)
 

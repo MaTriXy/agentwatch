@@ -8,8 +8,8 @@ from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 
-# Uncomment this to use spyllm
-#import spyllm
+# Uncomment this to use agentspy
+#import agentspy
 
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 load_dotenv()

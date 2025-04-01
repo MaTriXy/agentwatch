@@ -1,7 +1,7 @@
 import unittest
 
-from spyllm.core import Singleton
-from spyllm.event_processor import EventProcessor
+from agentspy.core import Singleton
+from agentspy.event_processor import EventProcessor
 
 
 class TestHybridSingleton(unittest.TestCase):

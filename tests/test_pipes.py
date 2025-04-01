@@ -4,8 +4,8 @@ from multiprocessing import Pipe
 import pytest
 from pydantic import BaseModel
 
-from spyllm.models import CommandResponse
-from spyllm.pipes import Pipes
+from agentspy.models import CommandResponse
+from agentspy.pipes import Pipes
 
 
 class MockPayload(BaseModel):

@@ -1,8 +1,8 @@
 [tool.setuptools]
-py-modules = ["spyllm"]
+py-modules = ["agentspy"]
 
 [tool.poetry]
-name = "spyllm"
+name = "agentspy"
 version = "1.0.0"
 description = "Platform agnostic Agentic AI runtime observability framework"
 authors = ["Shai Dvash <shai.dvash@cyberark.com>"]
@@ -39,7 +39,7 @@ pythonpath = [
 ]
 
 [tool.poetry.scripts]
-spyllm = "spyllm.cli:main"
+agentspy = "agentspy.cli:main"
 
 [build-system]
 requires = ["setuptools>=40.9.0", "wheel", "poetry-core>=1.0.0"]
