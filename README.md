@@ -110,7 +110,7 @@ agentwatch is released under the [Apache License 2.0](https://www.apache.org/lic
 
 ## 📧 Contact
 
-Have questions or suggestions? Reach out to us at [fzai@cyberark.com](mailto:shai.dvash@cyberark.com) or join our [Discord Community](https://discord.gg/Zt297RAK).
+Have questions or suggestions? Reach out to us at [shai.dvash@cyberark.com](mailto:shai.dvash@cyberark.com) or join our [Discord Community](https://discord.gg/Zt297RAK).
 
 ## 🌈 Powered By CyberArk
 
