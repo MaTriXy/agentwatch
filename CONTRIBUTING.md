@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for considering contributing to agentspy! We welcome contributions to improve this project. For general contributions and community guidelines, please see the [repo](https://github.com/cyberark/community/).
+Thank you for considering contributing to agentwatch! We welcome contributions to improve this project. For general contributions and community guidelines, please see the [repo](https://github.com/cyberark/community/).
 ## General Steps for Contributing
 
 1. Fork the project.  

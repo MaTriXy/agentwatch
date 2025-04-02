@@ -1,2 +1,2 @@
 #!/bin/bash
-poetry run python src/agentspy/cli.py ui
+poetry run python src/agentwatch/cli.py ui

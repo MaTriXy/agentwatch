@@ -3,13 +3,13 @@ import uuid
 
 import pytest
 
-from agentspy.enums import HookEventType
-from agentspy.graph.consts import APP_NODE_ID
-from agentspy.graph.models import LLMNode, ModelGenerateEdge, ToolCallEdge, ToolNode
-from agentspy.llm.anthropic_models import AnthropicRequestModel, AnthropicResponseModel
-from agentspy.llm.enums import Role
-from agentspy.llm.models import AssistantMessage, TextContent, Tool, ToolUse, UserMessage
-from agentspy.processing.http_processing import HttpProcessor
+from agentwatch.enums import HookEventType
+from agentwatch.graph.consts import APP_NODE_ID
+from agentwatch.graph.models import LLMNode, ModelGenerateEdge, ToolCallEdge, ToolNode
+from agentwatch.llm.anthropic_models import AnthropicRequestModel, AnthropicResponseModel
+from agentwatch.llm.enums import Role
+from agentwatch.llm.models import AssistantMessage, TextContent, Tool, ToolUse, UserMessage
+from agentwatch.processing.http_processing import HttpProcessor
 
 
 @pytest.fixture

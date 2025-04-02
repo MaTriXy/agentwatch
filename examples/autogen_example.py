@@ -6,7 +6,7 @@ from typing import Annotated, Literal
 import autogen
 from dotenv import load_dotenv
 
-from agentspy.core import initialize
+from agentwatch.core import initialize
 
 logging.basicConfig(level=logging.DEBUG)
 

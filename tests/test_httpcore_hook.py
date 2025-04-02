@@ -3,9 +3,9 @@ from unittest.mock import AsyncMock, Mock
 import pytest
 from httpcore import Request, Response
 
-from agentspy.enums import HookEventType
-from agentspy.hooks.http.httpcore_hook import HttpcoreHook
-from agentspy.hooks.models import HookEvent
+from agentwatch.enums import HookEventType
+from agentwatch.hooks.http.httpcore_hook import HttpcoreHook
+from agentwatch.hooks.models import HookEvent
 
 
 @pytest.fixture

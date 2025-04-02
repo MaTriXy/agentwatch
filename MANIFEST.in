@@ -3,7 +3,7 @@ include LICENSE
 include pyproject.toml
 include setup.cfg
 include setup.py
-recursive-include src/agentspy *.py
+recursive-include src/agentwatch *.py
 recursive-include tests *.py
 recursive-include examples *.py
 recursive-include docs *.md
