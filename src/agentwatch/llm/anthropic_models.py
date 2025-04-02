@@ -36,7 +36,8 @@ class AnthropicRequestModel(GraphExtractor):
                     if isinstance(content, ToolUse):
                         tool_call_edge = ToolCallEdge(source_node_id=APP_NODE_ID,
                                                         target_node_id=content.name,
-                                                        tool_input=content.input)
+                                                        tool_input=content.input,
+                                                        tool_name=content.name)
                         edges.append(tool_call_edge)
                     elif isinstance(content, TextContent):
                         model_generate_edge = ModelGenerateEdge(prompt=content.text,

@@ -25,8 +25,6 @@ class EventProcessor:
     NUM_WORKERS = 1
 
     def __init__(self) -> None:
-        logger.info("agentwatch initializing...")
-
         self._exit_event: Optional[Event] = None
         self._init_event: Optional[Event] = None
         self._pipe: Optional[Connection] = None
@@ -40,8 +38,6 @@ class EventProcessor:
         self._supported_processors: list[type[BaseProcessor]] = [
             HttpProcessor
             ]
-        
-        logger.debug("agentwatch initialized!")
     
     def start(self, pipe: Connection, init_event: Event, exit_event: Event) -> None: 
         self._pipe = pipe
@@ -65,7 +61,7 @@ class EventProcessor:
         
         self._register_visualization_webhook()
 
-        logger.debug(f"agentwatch up and running")
+        logger.info(f"agentwatch up and running!")
         if self._init_event:
             self._init_event.set()
 

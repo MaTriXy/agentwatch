@@ -1,7 +1,7 @@
 import time
 import uuid
 from abc import abstractmethod
-from typing import Any, Type, TypeAlias
+from typing import Any, Optional, Type, TypeAlias
 
 from pydantic import BaseModel, Field
 
@@ -41,9 +41,13 @@ class ModelGenerateEdge(Edge):
     edge_type: EdgeType = EdgeType.MODEL_GENERATE
     prompt: str
 
+    class Config:
+        extra = "allow"
+
 class ToolCallEdge(Edge):
     edge_type: EdgeType = EdgeType.TOOL_CALL
     tool_input: dict[str, Any]
+    tool_name: Optional[str] = None
 
 GraphStructure: TypeAlias = tuple[list[Node], list[Edge]]
 

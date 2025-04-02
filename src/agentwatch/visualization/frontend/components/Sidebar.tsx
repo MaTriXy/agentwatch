@@ -9,8 +9,6 @@ type EdgeData = Edge & {
   source: string;
   target: string;
   data?: {
-    prompt?: string;
-    tool_input?: string;
     [key: string]: any;
   };
 };
