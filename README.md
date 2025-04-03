@@ -39,7 +39,9 @@ agentwatch is a cutting-edge observability framework designed to provide deep in
 - Langgraph
 - Autogen
 - ...
-- Any other framework or library which uses an LLM :D
+- Any other* framework or library which uses an LLM :D
+
+We're working on updating our models to match the various providers - stay tuned!
 
 ## 📦 Prerequisites
 To ensure compatibility with agentwatch, your application must be written in Python. The visualization UI will be built locally on your endpoint using npm,
