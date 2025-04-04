@@ -12,7 +12,7 @@
         <img alt="GitHub code size" src="https://img.shields.io/github/languages/code-size/cyberark/agentwatch">
     </a>
     <a href="https://github.com/cyberark/agentwatch/blob/main/LICENSE">
-        <img alt="Apache License" src="https://img.shields.io/github/license/cyberark/agentwatch">
+        <img alt="GitHub License" src="https://img.shields.io/github/license/Cyberark/Agentwatch" />
     </a>
     <a href="https://discord.gg/Zt297RAK">
         <img alt="Join Discord Community" src="https://img.shields.io/discord/1330486843938177157">
