@@ -35,5 +35,5 @@ class HttpInterceptHook(BaseHook):
         ...
     
     @abc.abstractmethod
-    def _normalize_response(self, *args: Any, **kwargs: Any) -> Any:
+    def _normalize_response_sync(self, *args: Any, **kwargs: Any) -> Any:
         ...

@@ -66,7 +66,26 @@ class HttpcoreHook(HttpInterceptHook):
             data=request_data.model_dump()
         )
 
-    def _normalize_response(self, response: httpcore.Response) -> HookEvent:
+    async def _normalize_response(self, response: httpcore.Response) -> HookEvent:
+        httpx_response = httpx.Response(
+            status_code=response.status,
+            headers=response.headers,
+            content=await response.aread(),
+            extensions=response.extensions,
+        )
+
+        response_data = HTTPResponseData(
+            status_code=httpx_response.status_code,
+            headers=dict(httpx_response.headers),
+            body=httpx_response.text
+        )
+        
+        return HookEvent(
+            event_type=HookEventType.HTTP_RESPONSE,
+            data=response_data.model_dump()
+        )
+    
+    def _normalize_response_sync(self, response: httpcore.Response) -> HookEvent:
         httpx_response = httpx.Response(
             status_code=response.status,
             headers=response.headers,
@@ -90,7 +109,7 @@ class HttpcoreHook(HttpInterceptHook):
         self._callback_handler.on_hook_callback_sync(self, normalized)
     
     def _response_callback_sync(self, response: httpcore.Response) -> None:
-        normalized = self._normalize_response(response) 
+        normalized = self._normalize_response_sync(response) 
         self._callback_handler.on_hook_callback_sync(self, normalized)
     
     async def _request_callback(self, request: httpcore.Request) -> None:
@@ -98,7 +117,7 @@ class HttpcoreHook(HttpInterceptHook):
         await self._callback_handler.on_hook_callback(self, normalized)
     
     async def _response_callback(self, response: httpcore.Response) -> None:
-        normalized = self._normalize_response(response) 
+        normalized = await self._normalize_response(response) 
         await self._callback_handler.on_hook_callback(self, normalized)
 
     def _intercepted_handle_request(self, conn_self: httpcore.HTTPConnection, request: httpcore.Request) -> httpcore.Response:
@@ -118,14 +137,14 @@ class HttpcoreHook(HttpInterceptHook):
     
     async def _intercepted_handle_async_request(self, conn_self: httpcore.AsyncHTTPConnection, request: httpcore.Request) -> httpcore.Response:
         await self._request_callback(request)
-        response: httpcore.Response = self._original_handle_async_request(conn_self, request)  # type: ignore
+        response: httpcore.Response = await self._original_handle_async_request(conn_self, request)  # type: ignore
         await self._response_callback(response)
 
         # Since we messed up the response, we'll need to create a new one
         new_response = httpcore.Response(
             status=response.status,
             headers=response.headers,
-            content=response.read(),
+            content=await response.aread(),
             extensions=response.extensions.copy() if response.extensions else {},  # type: ignore
         )
 
