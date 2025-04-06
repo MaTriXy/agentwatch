@@ -11,8 +11,8 @@
     <a href="https://github.com/cyberark/agentwatch">
         <img alt="GitHub code size" src="https://img.shields.io/github/languages/code-size/cyberark/agentwatch">
     </a>
-    <a href="https://github.com/cyberark/agentwatch/blob/master/LICENSE">
-        <img alt="Apache License" src="https://img.shields.io/github/license/cyberark/agentwatch">
+    <a href="https://github.com/cyberark/agentwatch/blob/main/LICENSE">
+        <img alt="GitHub License" src="https://img.shields.io/github/license/Cyberark/Agentwatch" />
     </a>
     <a href="https://discord.gg/Zt297RAK">
         <img alt="Join Discord Community" src="https://img.shields.io/discord/1330486843938177157">
@@ -39,7 +39,9 @@ agentwatch is a cutting-edge observability framework designed to provide deep in
 - Langgraph
 - Autogen
 - ...
-- Any other framework or library which uses an LLM :D
+- Any other* framework or library which uses an LLM :D
+
+We're working on updating our models to match the various providers - stay tuned!
 
 ## 📦 Prerequisites
 To ensure compatibility with agentwatch, your application must be written in Python. The visualization UI will be built locally on your endpoint using npm,
