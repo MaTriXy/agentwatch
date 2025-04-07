@@ -29,6 +29,7 @@ agentwatch is a cutting-edge observability framework designed to provide deep in
 
 ## ✨ Key Features
 
+- **A One-liner Observability Framework**: Get instant insights with just a single import
 - **Comprehensive Interaction Tracking**: Monitor LLM and tool calls in real-time
 - **Advanced Visualization**: Generate intuitive graphs for in-depth analysis
 - **Detailed Metadata Capture**: Log tool inputs, arguments, and performance metrics
