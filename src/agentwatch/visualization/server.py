@@ -91,7 +91,7 @@ async def add_nodes(nodes: list[Node]) -> dict[str, Any]:
 @app.post(API_EVENTS)
 async def handle_events(event: WebhookEvent) -> dict[str, Any]:
     """Handle events"""
-    print(f"{event.model_dump()}")
+    logger.debug(f"{event.model_dump()}")
 
     match event.event_type:
         case WebhookEventType.NODES:
