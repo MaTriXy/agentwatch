@@ -3,9 +3,7 @@ from unittest.mock import AsyncMock, Mock
 import pytest
 from httpcore import Request, Response
 
-from agentwatch.enums import HookEventType
 from agentwatch.hooks.http.httpcore_hook import HttpcoreHook
-from agentwatch.hooks.models import HookEvent
 
 
 @pytest.fixture
@@ -41,7 +39,7 @@ def test_response_callback_sync(httpcore_hook, callback_handler):
     request.headers = [(b"Content-Type", b"application/json")]
     response = Response(200)
     response.headers = [(b"Content-Type", b"application/json")]
-    expected_event = httpcore_hook._normalize_response(response)
+    expected_event = httpcore_hook._normalize_response_sync(response)
     
     httpcore_hook._response_callback_sync(response)
     
@@ -65,7 +63,7 @@ async def test_request_callback(httpcore_hook, callback_handler):
 @pytest.mark.asyncio
 async def test_response_callback(httpcore_hook, callback_handler):
     response = Response(200)
-    expected_event = httpcore_hook._normalize_response(response)
+    expected_event = httpcore_hook._normalize_response_sync(response)
     
     await httpcore_hook._response_callback(response)
     
