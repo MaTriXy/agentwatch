@@ -123,7 +123,11 @@ class HttpcoreHook(HttpInterceptHook):
     def _intercepted_handle_request(self, conn_self: httpcore.HTTPConnection, request: httpcore.Request) -> httpcore.Response:
         self._request_callback_sync(request)
         response: httpcore.Response = self._original_handle_request(conn_self, request)  # type: ignore
-        self._response_callback_sync(response)
+        try:
+            self._response_callback_sync(response)
+        except Exception as e:
+            logger.debug(f"Error in response callback: {e}")
+            return response
 
         # Since we messed up the response, we'll need to create a new one
         new_response = httpcore.Response(
@@ -138,8 +142,12 @@ class HttpcoreHook(HttpInterceptHook):
     async def _intercepted_handle_async_request(self, conn_self: httpcore.AsyncHTTPConnection, request: httpcore.Request) -> httpcore.Response:
         await self._request_callback(request)
         response: httpcore.Response = await self._original_handle_async_request(conn_self, request)  # type: ignore
-        await self._response_callback(response)
-
+        try:
+            await self._response_callback(response)
+        except Exception as e:
+            logger.debug(f"Error in response callback: {e}")
+            return response
+        
         # Since we messed up the response, we'll need to create a new one
         new_response = httpcore.Response(
             status=response.status,
