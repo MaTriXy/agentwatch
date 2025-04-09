@@ -45,7 +45,7 @@ class EventProcessor:
         try:
             asyncio.run(self._start())
         except Exception as e:
-            logger.error(f"Exception in start(): {e}")
+            pass
 
         logger.info("agentwatch shutdown successfully")
 
@@ -185,7 +185,9 @@ class EventProcessor:
             task.cancel()
             await task
         
-        self._pipe.close()
+        if self._pipe:
+            self._pipe.close()
+
         logger.debug("agentwatch shutdown complete")
 
     def _set_verbose(self) -> None:
