@@ -178,7 +178,9 @@ class AgentwatchClient(HookCallbackProto):
             # Send shutdown command
             self.send_command(CommandAction.SHUTDOWN)
             self._agentwatch_fd.close()
-            self._process.join(5)
+            
+            if self._process:
+                self._process.join(5)
 
             # Force terminate if still running
             if self._process and self._process.is_alive():
