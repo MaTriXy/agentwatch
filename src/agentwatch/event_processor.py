@@ -25,7 +25,6 @@ class EventProcessor:
     NUM_WORKERS = 1
 
     def __init__(self) -> None:
-        self._exit_event: Optional[Event] = None
         self._init_event: Optional[Event] = None
         self._pipe: Optional[Connection] = None
         self._processors: list[BaseProcessor] = []
@@ -39,16 +38,16 @@ class EventProcessor:
             HttpProcessor
             ]
     
-    def start(self, pipe: Connection, init_event: Event, exit_event: Event) -> None: 
+    def start(self, pipe: Connection, init_event: Event) -> None: 
         self._pipe = pipe
-        self._exit_event = exit_event
         self._init_event = init_event
 
-        asyncio.run(self._start())
+        try:
+            asyncio.run(self._start())
+        except Exception as e:
+            logger.error(f"Exception in start(): {e}")
 
-        logger.debug("agentwatch stopped")
-        if self._exit_event:
-            self._exit_event.set()
+        logger.info("agentwatch shutdown successfully")
 
     async def _start(self) -> None:
         self._command_queue = asyncio.Queue()
@@ -61,16 +60,16 @@ class EventProcessor:
         
         self._register_visualization_webhook()
 
-        logger.info(f"agentwatch up and running!")
+        logger.debug(f"agentwatch started")
         if self._init_event:
             self._init_event.set()
 
         self._event_poller = asyncio.create_task(self._poll_events(), name="event-poller")
         await self._event_poller
-
         logger.debug("Stopped polling for events")
-
         await asyncio.gather(*self._workers)
+        
+        logger.info("agentwatch stopped")
 
     def _register_visualization_webhook(self) -> None:
         if self._webhook_handler is None:
@@ -179,11 +178,14 @@ class EventProcessor:
         
         if self._event_poller:
             self._event_poller.cancel()
+            await self._event_poller
 
         # TODO: Do we gather or do we cancel? The answer is a mystery to be revealed...
         for task in self._workers:
             task.cancel()
+            await task
         
+        self._pipe.close()
         logger.debug("agentwatch shutdown complete")
 
     def _set_verbose(self) -> None:

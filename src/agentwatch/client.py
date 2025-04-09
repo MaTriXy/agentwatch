@@ -23,7 +23,6 @@ class AgentwatchClient(HookCallbackProto):
         self._process: Optional[multiprocessing.Process] = None
         self._running = False
 
-        self._exit_ready_event = multiprocessing.Event()
         self._initialized_event = multiprocessing.Event()
 
         self._client_fd, self._agentwatch_fd = multiprocessing.Pipe()
@@ -125,17 +124,22 @@ class AgentwatchClient(HookCallbackProto):
         logger.debug("Initializing library process")
         self._process = multiprocessing.Process(
             target=self._agentwatch.start,
-            args=(self._client_fd, self._initialized_event, self._exit_ready_event),
+            args=(self._client_fd, self._initialized_event),
             daemon=True
         )
         
         self._process.start()
         self._running = True
         
-        self._initialized_event.wait(1)
+        try:
+            self._initialized_event.wait(5)
+        except multiprocessing.TimeoutError:
+            logger.error("Timeout waiting for agentwatch to initialize")
+            self._cleanup()
 
-        logger.debug(f"Library process started with PID {self._process.pid}")
-        
+        if self._initialized_event.is_set():
+            logger.info("agentwatch initialized successfully")
+
     
     def _apply_hooks(self, hooks: list[Type[BaseHook]]) -> None:
         for hook in hooks:
@@ -165,21 +169,16 @@ class AgentwatchClient(HookCallbackProto):
         return Pipes.read_response(self._agentwatch_fd, timeout)
 
     def shutdown(self) -> None:
-        """Shut down the library process"""
         if not self._running:
-            logger.warning("Library is not running")
+            logger.warning("agentwatch is not running")
             return
         
         logger.debug("Shutting down agentwatch")
         try:
             # Send shutdown command
             self.send_command(CommandAction.SHUTDOWN)
-            
-            # Give the process some time to terminate gracefully and wait for exit event
-            self._exit_ready_event.wait(5)
-            start_time = time.time()
-            while self._process and self._process.is_alive() and time.time() - start_time < 1:
-                time.sleep(0.1)
+            self._agentwatch_fd.close()
+            self._process.join(5)
 
             # Force terminate if still running
             if self._process and self._process.is_alive():
