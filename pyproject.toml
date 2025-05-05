@@ -9,7 +9,7 @@ authors = ["Shai Dvash <shai.dvash@cyberark.com>"]
 license = "Apache 2.0"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11"
 asyncio = "^3.4.3"
 pydantic = "^2.10.6"
 aiofiles = "^24.1.0"
