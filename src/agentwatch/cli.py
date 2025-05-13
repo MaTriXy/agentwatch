@@ -1,4 +1,5 @@
 import os
+import shutil
 import sys
 from pathlib import Path
 
@@ -29,8 +30,12 @@ async def run_server() -> None:
     except Exception:
         pass
 
-def run_ui() -> None:
+def run_ui(args: argparse.Namespace) -> None:
     dist_folder = Path(__file__).parent / "visualization" / "frontend" / "dist"
+    if args.rebuild:
+        if dist_folder.exists():
+            shutil.rmtree(str(dist_folder))
+
     if not dist_folder.exists():
         print("Building UI for the first time...")
         try:
@@ -59,10 +64,12 @@ def main() -> None:
 
     # UI Command
     ui_parser = subparsers.add_parser("ui", help="Launch (and build, if necessary) the agentwatch")
+    ui_parser.add_argument('-r', '--rebuild', action='store_true', help='Rebuilds the UI')
+
     ui_parser.set_defaults(func=run_ui)
 
     args = parser.parse_args()
-    args.func()
+    args.func(args)
 
 if __name__ == "__main__":  # pragma: no cover
     main()

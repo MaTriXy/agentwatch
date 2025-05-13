@@ -10,6 +10,7 @@ from agentwatch.hooks.http.models import HTTPRequestData, HTTPResponseData
 from agentwatch.llm.ollama_models import graph_extractor_fm
 from agentwatch.processing.base import BaseProcessor, GraphStructure
 from agentwatch.processing.normalizer.base import BaseHTTPContentNormalizer
+from agentwatch.processing.normalizer.event_stream_normalizer import EventStreamNormalizer
 from agentwatch.processing.normalizer.ndjson_normalizer import NdjsonContentNormalizer
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,8 @@ class HttpProcessor(BaseProcessor):
         ]
 
         self._content_normalizers: list[BaseHTTPContentNormalizer] = [
-            NdjsonContentNormalizer()
+            NdjsonContentNormalizer(),
+            EventStreamNormalizer(),
         ]
 
     async def process(self, event_type: HookEventType, data: dict[str, Any]) -> Optional[GraphStructure]:
@@ -41,16 +43,16 @@ class HttpProcessor(BaseProcessor):
 
         body: Optional[str] = reqres.body
 
-        if body is not None:
+        if body is not None and body != "":
             for normalizer in self._content_normalizers:
-                if reqres.headers.get("content-type") in normalizer.supported_content_types:
+                if any(sct in reqres.headers.get("content-type", 'text/plain') for sct in normalizer.supported_content_types):
                     body = normalizer.normalize(body)
                     break
 
             for model_type in models:
                 try:
                     req_model = model_type.model_validate_json(body)
-                    return self._parse_nodes_and_edges(req_model)
+                    return self._parse_nodes_and_edges(req_model, reqres=reqres)
                 except ValidationError as e:
                     continue
 
@@ -59,6 +61,6 @@ class HttpProcessor(BaseProcessor):
         return None
     
     def _parse_nodes_and_edges(self, payload: GraphExtractor, **kwargs: Any) -> Optional[GraphStructure]:
-       nodes, edges = payload.extract_graph_structure()
+       nodes, edges = payload.extract_graph_structure(**kwargs)
        logger.debug(f"Extracted nodes: {nodes}, edges: {edges}")
        return nodes, edges

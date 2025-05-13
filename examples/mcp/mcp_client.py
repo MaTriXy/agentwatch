@@ -1,5 +1,4 @@
 
-raise RuntimeError("MCP support is in progress :)")
 # Based on https://github.com/langchain-ai/langchain-mcp-adapters
 # Copyright (c) Langchain/Langgraph
 
@@ -26,7 +25,7 @@ async def main():
     async with MultiServerMCPClient(
         {
             "weather": {
-                "url": "http://localhost:8000/sse",
+                "url": "http://localhost:8001/sse",
                 "transport": "sse",
             }
         }
@@ -34,6 +33,7 @@ async def main():
         agent = create_react_agent(model, client.get_tools())
         weather_response = await agent.ainvoke({"messages": "what is the weather in nyc?"})
         print(weather_response)
+        await asyncio.sleep(999999)
 
 if __name__ == "__main__":
     import asyncio

@@ -7,8 +7,10 @@ from typing import Any, Type
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 
+from agentwatch.graph.consts import APP_NODE_ID
 from agentwatch.graph.enums import EdgeType, NodeType
-from agentwatch.graph.models import Edge, LLMNode, ModelGenerateEdge, Node, ToolCallEdge, ToolNode
+from agentwatch.graph.models import (Edge, LLMNode, McpCallEdge, MCPServerNode, ModelGenerateEdge, Node, ToolCallEdge,
+                                     ToolNode)
 from agentwatch.visualization.consts import API_EDGES, API_EVENTS, API_NODES
 from agentwatch.visualization.enums import WebsocketEvent
 from agentwatch.visualization.models import WebsocketMessage
@@ -42,16 +44,32 @@ def create_edge_from_data(edge_data: dict[str, Any]) -> Edge:
     
     edge_class_map: dict[EdgeType, Type[Edge]] = {
         EdgeType.TOOL_CALL: ToolCallEdge,
+        EdgeType.MCP_CALL: McpCallEdge,
         EdgeType.MODEL_GENERATE: ModelGenerateEdge
     }
     
+    #print(edge_data)
     edge_class = edge_class_map.get(edge_type, Edge)
     return edge_class.model_validate(edge_data)
 
 @app.post(API_EDGES)
 async def add_edges(edges: list[Edge]) -> dict[str, Any]:
     """Add edges to the graph"""
-    app_edges.extend(edges)
+    edges_to_append = []
+
+    for e in edges:
+        if e.source_node_id != APP_NODE_ID:
+            edges_to_append.append(e)
+            continue
+        
+        if e.target_node_id in [n.node_id for n in app_nodes]:
+            target_node = next((n for n in app_nodes if n.node_id == e.target_node_id), None)
+            if isinstance(target_node, ToolNode) and target_node.host_node is not None:
+                logger.debug(f"Removing edge {e} because the target node {target_node} has a host node.")
+                continue
+        edges_to_append.append(e)
+
+    app_edges.extend(edges_to_append)
 
     message = WebsocketMessage(type=WebsocketEvent.ADD_EDGE, data=[e.model_dump() for e in app_edges])
     for conn in connections:
@@ -66,9 +84,11 @@ def create_node_from_data(node_data: dict[str, Any]) -> Node:
     node_class_map: dict[NodeType, Type[Node]] = {
         NodeType.LLM: LLMNode,
         NodeType.TOOL: ToolNode,
+        NodeType.MCP_SERVER: MCPServerNode
     }
     
     node_class = node_class_map.get(node_type, Node)
+    print(node_data)
     return node_class.model_validate(node_data)
 
 @app.post(API_NODES)

@@ -1,6 +1,7 @@
 import time
 import uuid
 from abc import abstractmethod
+from enum import Enum
 from typing import Any, Optional, Type, TypeAlias
 
 from pydantic import BaseModel, Field
@@ -12,7 +13,7 @@ from agentwatch.utils.flavor_manager import FlavorManager
 
 class GraphExtractor(BaseModel):
     @abstractmethod
-    def extract_graph_structure(self) -> "GraphStructure":
+    def extract_graph_structure(self, *args: Any, **kwargs: Any) -> "GraphStructure":
         ...
 
 class Node(BaseModel):
@@ -23,9 +24,13 @@ class Node(BaseModel):
 class LLMNode(Node):
     node_type: NodeType = NodeType.LLM
 
+class MCPServerNode(Node):
+    node_type: NodeType = NodeType.MCP_SERVER
+
 class ToolNode(Node):
     node_type: NodeType = NodeType.TOOL
     tool_description: str
+    host_node: Optional[str] = None
     
 class AppNode(Node):
     node_id: str = APP_NODE_ID
@@ -48,6 +53,15 @@ class ToolCallEdge(Edge):
     edge_type: EdgeType = EdgeType.TOOL_CALL
     tool_input: dict[str, Any]
     tool_name: Optional[str] = None
+
+class MCPMethodType(str, Enum):
+    TOOL_CALL = "tools/call"
+    TOOL_LIST = "tools/list"
+
+class McpCallEdge(Edge):
+    edge_type: EdgeType = EdgeType.MCP_CALL
+    method: MCPMethodType
+    payload: Optional[dict[str, Any]] = None
 
 GraphStructure: TypeAlias = tuple[list[Node], list[Edge]]
 

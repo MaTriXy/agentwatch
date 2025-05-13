@@ -2,6 +2,7 @@ import logging
 from typing import Any, Optional
 
 from agentwatch.enums import HookEventType
+from agentwatch.hooks.http.http_async_iterator import HttpAsyncIterator
 from agentwatch.hooks.http.http_base_hook import HttpInterceptHook
 from agentwatch.hooks.http.models import HTTPRequestData, HTTPResponseData
 from agentwatch.hooks.models import HookEvent
@@ -139,9 +140,37 @@ class HttpcoreHook(HttpInterceptHook):
 
         return new_response
     
+    def _is_event_stream(self, response: httpcore.Response) -> bool:
+        for kvp in response.headers:
+            header, value = kvp
+            if header.decode().lower() == 'content-type':
+                if 'text/event-stream' in value.decode().lower():
+                    return True
+        return False
+    
+    async def _handle_streamed_hook(self, event: HookEvent) -> None:
+       await self._callback_handler.on_hook_callback(self, event)
+        
     async def _intercepted_handle_async_request(self, conn_self: httpcore.AsyncHTTPConnection, request: httpcore.Request) -> httpcore.Response:
         await self._request_callback(request)
         response: httpcore.Response = await self._original_handle_async_request(conn_self, request)  # type: ignore
+        if self._is_event_stream(response):
+            # Get the 'host' header from the original request and put it in the response headers
+            # This is a workaround for the fact that httpcore doesn't pass the host header to the response
+            # when using streamed responses
+            for kvp in request.headers:
+                header, value = kvp
+                if header.decode().lower() == 'host':
+                    response.headers.append((header, value))
+                    break
+
+            new_response = httpcore.Response(
+                status=response.status,
+                headers=response.headers,
+                content=HttpAsyncIterator(response, self._handle_streamed_hook),
+                extensions=response.extensions.copy() if response.extensions else {},  # type: ignore
+            )
+            return new_response
         try:
             await self._response_callback(response)
         except Exception as e:

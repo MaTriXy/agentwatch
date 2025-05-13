@@ -40,7 +40,7 @@ class OpenAIRequestModel(GraphExtractor):
     stream: bool
     tools: list[Tool] = []
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         nodes: list[Node] = []
         edges: list[Edge] = []
 
@@ -104,14 +104,12 @@ class OpenAIResponseModel(GraphExtractor):
     model: str
     choices: list[Choice]
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         nodes: list[Node] = []
         edges: list[Edge] = []
 
         for choice in self.choices:
             for tool_call in choice.message.tool_calls:
-                # Two edges should appear here: one edge displays the result from the LLM
-                # The other one 'simulates' the app call to the tool itself
                 edges.append(ToolCallEdge(source_node_id=self.model,
                             target_node_id=APP_NODE_ID, 
                             tool_name=tool_call.function.name,

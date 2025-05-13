@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from agentwatch.graph.consts import APP_NODE_ID
 from agentwatch.graph.enums import HttpModel
@@ -13,7 +13,7 @@ class AnthropicRequestModel(GraphExtractor):
     model: str
     tools: list[Tool] = []
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         nodes: list[Node] = []
         edges: list[Edge] = []
         
@@ -56,7 +56,7 @@ class AnthropicResponseModel(GraphExtractor):
     content: list[TextContent | ToolUse]
     stop_reason: Optional[str]
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         edges: list[Edge] = []
 
         for content in self.content:

@@ -108,7 +108,7 @@ class EventProcessor:
         except asyncio.CancelledError as e:
             logger.debug(f"Worker {asyncio.current_task().get_name()} cancelled")  # type: ignore
         except Exception as e:
-            logger.error(f"Error consuming events: {e}")
+            logger.error(f"Error consuming events: {e}", exc_info=True)
             raise
 
     async def _poll_events(self) -> None:

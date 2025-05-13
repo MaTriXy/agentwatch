@@ -10,7 +10,7 @@ import {
 } from '@xyflow/react';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { LuAtom, LuBrainCog, LuCloud, LuCodesandbox, LuDrill } from 'react-icons/lu';
+import { LuAtom, LuBrainCog, LuCloud, LuCodesandbox, LuDrill, LuServerCog } from 'react-icons/lu';
 
 import '@xyflow/react/dist/base.css';
 
@@ -193,6 +193,10 @@ const Flow = () => {
             topIcon = <LuCloud />;  
             y = 300;
             break;
+          case 'mcp_server':
+            icon = <LuServerCog />;
+            y = -200;
+            break;
           case 'app':
             icon = <LuAtom />;
             topIcon = <LuCodesandbox />;  
@@ -244,16 +248,19 @@ const Flow = () => {
         nodes.find(node => node.id.startsWith(nodeId.slice(0, 6)))?.id || nodeId;
       
       // Ensure the target node exists or find a similar one
+      let targetNodeId = e.target_node_id;
       if (!nodes.some(node => node.id === e.target_node_id)) {
-        e.target_node_id = findSimilarNode(nodes, e.target_node_id);
+        targetNodeId = findSimilarNode(nodes, e.target_node_id);
       }
       
       // Ensure the source node exists or find a similar one
+      let sourceNodeId = e.source_node_id;
       if (!nodes.some(node => node.id === e.source_node_id)) {
-        e.source_node_id = findSimilarNode(nodes, e.source_node_id);
+        sourceNodeId = findSimilarNode(nodes, e.source_node_id);
       }
-      // Check if an edge with the same ID already exists
-      const edgeId = `e${e.source_node_id}-${e.target_node_id}-${e.created_at}`;
+  
+      // Using updated sourceNodeId and targetNodeId
+      const edgeId = `e${sourceNodeId}-${targetNodeId}-${e.created_at}`;
       
       setEdges(currentEdges => {
         // Check if edge already exists
@@ -264,19 +271,21 @@ const Flow = () => {
           return currentEdges;
         }
         
-        const edge = {
+        // Create the new edge
+        const newEdge = {
           id: edgeId,
           createdAt: e.created_at,
           type: 'turbo',
-          source: e.source_node_id,
-          target: e.target_node_id,
+          source: sourceNodeId,
+          target: targetNodeId,
           data: {
             ...e
           },
           className: 'fade-in-anim'
-        }
-
-        return [...currentEdges, edge];
+        };
+        
+        // Return the updated edges array
+        return [...currentEdges, newEdge];
       });
     });
   };

@@ -32,7 +32,7 @@ class OllamaRequestModel(GraphExtractor):
     messages: list[UserMessage | AssistantMessage]
     tools: list[OllamaTool] = []
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         nodes: list[Node] = []
         edges: list[Edge] = []
         
@@ -71,7 +71,7 @@ class OllamaResponseModel(GraphExtractor):
     eval_count: int
     eval_duration: int
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         edges: list[Edge] = []
 
         # First check if it's a tool call
@@ -98,7 +98,7 @@ class OllamaGenerateRequestModel(GraphExtractor):
     options: dict[str, Any]
     stream: bool
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         nodes: list[Node] = []
         edges: list[Edge] = []
 
@@ -117,7 +117,7 @@ class OllamaGenerateResponseModel(GraphExtractor):
     response: str
     done: bool
 
-    def extract_graph_structure(self) -> GraphStructure:
+    def extract_graph_structure(self, **kwargs: Any) -> GraphStructure:
         model_generate_edge = ModelGenerateEdge(prompt=self.response,
                                                 source_node_id=self.model,
                                                 target_node_id=APP_NODE_ID)

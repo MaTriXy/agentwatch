@@ -1,6 +1,15 @@
 import asyncio
+import sys
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from openai import AsyncOpenAI
+
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
 
 import agentwatch
 
