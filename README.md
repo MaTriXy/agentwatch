@@ -34,6 +34,7 @@ agentwatch is a cutting-edge observability framework designed to provide deep in
 - **Advanced Visualization**: Generate intuitive graphs for in-depth analysis
 - **Detailed Metadata Capture**: Log tool inputs, arguments, and performance metrics
 - **Multi-Framework Support**: Compatible with various AI development frameworks
+- **MCP Support**: Tracks tool calls over remote MCP servers (HTTP/SSE only atm)
 
 ## 🚀 Supported Frameworks
 
